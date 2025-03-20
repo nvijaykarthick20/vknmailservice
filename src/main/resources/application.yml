@@ -1,0 +1,53 @@
+server:
+  port: 8083
+  servlet:
+    context-path: "/vknmail"
+
+
+mail:
+  from: vijaykarthick4u@gmail.com
+
+
+spring:
+  application:
+    name: vknmailservice
+  cloud:
+    kubernetes:
+      discovery:
+        all-namespaces: true
+  mail:
+    host: smtp.sendgrid.net
+    port: 587
+    username: test
+    password: test
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: false
+
+
+vknservice:
+  eventproducer:
+    endpoint: http://localhost:8084/vknevent
+  keycloak:
+    endpoint: http://localhost:8079/vknkeycloak
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    gateway:
+      enabled: true
+    health:
+      probes:
+        enabled: true
